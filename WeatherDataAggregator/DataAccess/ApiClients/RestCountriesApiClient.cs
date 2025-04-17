@@ -1,8 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using WeatherDataAggregator.Models;
 
-namespace WeatherDataAggregator.ApiClients;
+namespace WeatherDataAggregator.DataAccess.ApiClients;
 
-public class RestCountriesApiClient
+public class RestCountriesApiClient : ICountriesApiClient
 {
     private const string _urlBase = @"https://restcountries.com/v3.1/region/";
     private readonly ReadOnlyDictionary<Continent, string> _continentSelector =

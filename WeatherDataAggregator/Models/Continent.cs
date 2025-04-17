@@ -2,6 +2,11 @@
 
 public enum Continent
 {
-    Europe, Asia, NorthAmerica, SouthAmerica, Australia, Africa
+    Europe = 1, 
+    Asia = 2, 
+    NorthAmerica = 3, 
+    SouthAmerica = 4, 
+    Australia = 5, 
+    Africa = 6
 }
 

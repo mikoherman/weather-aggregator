@@ -11,7 +11,7 @@ public static class ContinentEnumExtensions
     /// <returns>
     /// A string where each line contains the integer value and name of a <see cref="Continent"/> enum member.
     /// </returns>
-    public static string GetFormattedList() =>
+    public static string GetContinentListAsString() =>
         string.Join(Environment.NewLine, EnumExtensions
             .GetAllValues<Continent>()
             .Select(continent => $"{(int)continent}. {continent}"));

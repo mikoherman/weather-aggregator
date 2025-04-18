@@ -6,7 +6,7 @@ public enum Continent
     Asia = 2, 
     NorthAmerica = 3, 
     SouthAmerica = 4, 
-    Australia = 5, 
+    Oceania = 5, 
     Africa = 6
 }
 

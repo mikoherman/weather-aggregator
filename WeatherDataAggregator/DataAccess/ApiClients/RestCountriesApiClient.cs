@@ -14,7 +14,7 @@ public class RestCountriesApiClient : ICountriesApiClient
             [Continent.Africa] = "africa",
             [Continent.NorthAmerica] = "north america",
             [Continent.SouthAmerica] = "south america",
-            [Continent.Australia] = "australia"
+            [Continent.Oceania] = "oceania"
         });
 
     public async Task<string> FetchData(Continent continent)

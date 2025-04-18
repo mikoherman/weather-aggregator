@@ -1,4 +1,6 @@
-﻿using WeatherDataAggregator.Models;
+﻿using System.Collections.ObjectModel;
+using WeatherDataAggregator.Models;
+using WeatherDataAggregator.UserInteraction.TablePrinter;
 using WeatherDataAggregator.Utilities;
 
 namespace WeatherDataAggregator.UserInteraction;
@@ -6,10 +8,13 @@ namespace WeatherDataAggregator.UserInteraction;
 public class ConsoleUserIOProcessor
 {
     private readonly IConsoleUserInteractor _userInteractor;
+    private readonly IConsoleWeatherDataTablePrinter _weatherDataTablePrinter;
 
-    public ConsoleUserIOProcessor(IConsoleUserInteractor userInteractor)
+    public ConsoleUserIOProcessor(IConsoleUserInteractor userInteractor, 
+        IConsoleWeatherDataTablePrinter weatherDataTablePrinter)
     {
         _userInteractor = userInteractor;
+        _weatherDataTablePrinter = weatherDataTablePrinter;
     }
 
     private void DisplayAllContinents()
@@ -34,5 +39,8 @@ public class ConsoleUserIOProcessor
         !Enum.IsDefined(typeof(Continent), continentEnumId));
         return (Continent) continentEnumId;
     }
-    
+
+    public void DisplayWeatherDataForCountries(
+        ReadOnlyDictionary<Country, WeatherData> weathersInCountries) =>
+        _weatherDataTablePrinter.PrintTable(weathersInCountries);
 }

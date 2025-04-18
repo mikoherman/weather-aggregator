@@ -3,6 +3,7 @@ using System.Text.Json;
 using WeatherDataAggregator.DataAccess.ApiClients;
 using WeatherDataAggregator.DTOs.OpenWeatherDTOs;
 using WeatherDataAggregator.Models;
+using WeatherDataAggregator.Utilities;
 
 namespace WeatherDataAggregator.DataAccess;
 
@@ -50,7 +51,7 @@ public class WeatherDataProvider : IWeatherDataProvider
                 Temperature = weatherApiResponseDto.WeatherMainDto.Temp,
                 FeelsLikeTemperature = weatherApiResponseDto.WeatherMainDto.FeelsLike,
                 Humidity = weatherApiResponseDto.WeatherMainDto.Humidity,
-                WindSpeed = weatherApiResponseDto.Wind.Speed,
+                WindSpeed = WindSpeedEnumExtensions.ConvertToWindSpeed(weatherApiResponseDto.Wind.Speed),
                 Pressure = weatherApiResponseDto.WeatherMainDto.Pressure
             });
         }

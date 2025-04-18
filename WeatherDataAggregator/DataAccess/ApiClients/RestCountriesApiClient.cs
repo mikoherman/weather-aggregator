@@ -3,9 +3,10 @@ using WeatherDataAggregator.Models;
 
 namespace WeatherDataAggregator.DataAccess.ApiClients;
 
-public class RestCountriesApiClient : ICountriesApiClient
+public class RestCountriesApiClient : ICountriesApiClient, IDisposable
 {
     private const string _urlBase = @"https://restcountries.com/v3.1/region/";
+    private readonly HttpClient _httpClient;
     private readonly ReadOnlyDictionary<Continent, string> _continentSelector =
         new ReadOnlyDictionary<Continent, string>(new Dictionary<Continent, string>()
         {
@@ -17,12 +18,20 @@ public class RestCountriesApiClient : ICountriesApiClient
             [Continent.Oceania] = "oceania"
         });
 
+    public RestCountriesApiClient(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
     public async Task<string> FetchData(Continent continent)
     {
         string fullUrl = $"{_urlBase}{_continentSelector[continent]}";
-        using var httpClient = new HttpClient();
-        var response = await httpClient.GetAsync(fullUrl);
+        var response = await _httpClient.GetAsync(fullUrl);
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadAsStringAsync();
+    }
+    public void Dispose()
+    {
+        _httpClient.Dispose();
     }
 }

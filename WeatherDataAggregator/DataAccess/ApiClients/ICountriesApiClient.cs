@@ -1,9 +1,9 @@
 ﻿using WeatherDataAggregator.Models;
 
-namespace WeatherDataAggregator.DataAccess.ApiClients
+namespace WeatherDataAggregator.DataAccess.ApiClients;
+
+public interface ICountriesApiClient
 {
-    public interface ICountriesApiClient
-    {
-        Task<string> FetchData(Continent continent);
-    }
+    void Dispose();
+    Task<string> FetchData(Continent continent);
 }

@@ -1,7 +1,7 @@
 ﻿using WeatherDataAggregator.Models;
 using WeatherDataAggregator.Utilities;
 
-namespace WeatherDataAggregator;
+namespace WeatherDataAggregator.UserInteraction;
 
 public class ConsoleUserIOProcessor
 {

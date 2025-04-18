@@ -15,7 +15,7 @@ public class ConsoleUserIOProcessor
     private void DisplayAllContinents()
     {
         var allContinentsToDisplay = 
-            ContinentEnumExtensions.GetFormattedList();
+            ContinentEnumExtensions.GetContinentListAsString();
         _userInteractor.DisplayMessage(allContinentsToDisplay);
     }
 

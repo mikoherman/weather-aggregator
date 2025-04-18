@@ -20,11 +20,8 @@ public class WeatherDataProvider
         if (string.IsNullOrEmpty(apiKey))
             throw new ArgumentNullException("Provided apiKey was invalid.");
 
-        var tasks = new List<Task<KeyValuePair<Country,WeatherData>>>();
-        foreach (var country in countries)
-        {
-            tasks.Add(Task.Run(() => GetWeatherDataForCountryAsync(country, apiKey)));
-        }
+        IEnumerable<Task<KeyValuePair<Country, WeatherData>>> tasks = countries
+            .Select(country => GetWeatherDataForCountryAsync(country, apiKey));
 
         try
         {

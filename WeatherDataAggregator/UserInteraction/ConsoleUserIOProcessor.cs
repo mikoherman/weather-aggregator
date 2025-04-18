@@ -5,12 +5,12 @@ using WeatherDataAggregator.Utilities;
 
 namespace WeatherDataAggregator.UserInteraction;
 
-public class ConsoleUserIOProcessor
+public class ConsoleUserIOProcessor : IConsoleUserIOProcessor
 {
     private readonly IConsoleUserInteractor _userInteractor;
     private readonly IConsoleWeatherDataTablePrinter _weatherDataTablePrinter;
 
-    public ConsoleUserIOProcessor(IConsoleUserInteractor userInteractor, 
+    public ConsoleUserIOProcessor(IConsoleUserInteractor userInteractor,
         IConsoleWeatherDataTablePrinter weatherDataTablePrinter)
     {
         _userInteractor = userInteractor;
@@ -19,7 +19,7 @@ public class ConsoleUserIOProcessor
 
     private void DisplayAllContinents()
     {
-        var allContinentsToDisplay = 
+        var allContinentsToDisplay =
             ContinentEnumExtensions.GetContinentListAsString();
         _userInteractor.DisplayMessage(allContinentsToDisplay);
     }
@@ -37,7 +37,7 @@ public class ConsoleUserIOProcessor
         string.IsNullOrEmpty(userInput) ||
         !int.TryParse(userInput, out continentEnumId) ||
         !Enum.IsDefined(typeof(Continent), continentEnumId));
-        return (Continent) continentEnumId;
+        return (Continent)continentEnumId;
     }
 
     public void DisplayWeatherDataForCountries(

@@ -1,4 +1,4 @@
-﻿namespace WeatherDataAggregator;
+﻿namespace WeatherDataAggregator.UserInteraction;
 
 public class ConsoleUserInteractor : IConsoleUserInteractor
 {

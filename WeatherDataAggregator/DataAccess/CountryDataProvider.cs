@@ -6,7 +6,7 @@ using WeatherDataAggregator.Models;
 
 namespace WeatherDataAggregator.DataAccess;
 
-public class CountryDataProvider
+public class CountryDataProvider : ICountryDataProvider
 {
     private readonly ICountriesApiClient _countriesApiClient;
 

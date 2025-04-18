@@ -6,7 +6,7 @@ using WeatherDataAggregator.Models;
 
 namespace WeatherDataAggregator.DataAccess;
 
-public class WeatherDataProvider
+public class WeatherDataProvider : IWeatherDataProvider
 {
     private readonly IWeatherApiClient _weatherApiClient;
 
@@ -15,7 +15,7 @@ public class WeatherDataProvider
         _weatherApiClient = weatherApiClient;
     }
 
-    public async Task<ReadOnlyDictionary<Country,WeatherData>> GetWeatherDataForCountriesAsync(IEnumerable<Country> countries, string? apiKey)
+    public async Task<ReadOnlyDictionary<Country, WeatherData>> GetWeatherDataForCountriesAsync(IEnumerable<Country> countries, string? apiKey)
     {
         if (string.IsNullOrEmpty(apiKey))
             throw new ArgumentNullException("Provided apiKey was invalid.");
@@ -30,7 +30,7 @@ public class WeatherDataProvider
                 results.ToDictionary(x => x.Key, x => x.Value)
             );
         }
-        catch(JsonException)
+        catch (JsonException)
         {
             //TODO: Add Exception logging
             Console.WriteLine("One or more of the Weather api responses failed to deserialize from JSON");
@@ -38,7 +38,7 @@ public class WeatherDataProvider
         }
     }
 
-    private async Task<KeyValuePair<Country,WeatherData>> GetWeatherDataForCountryAsync(Country country, string apiKey)
+    private async Task<KeyValuePair<Country, WeatherData>> GetWeatherDataForCountryAsync(Country country, string apiKey)
     {
         var stringJson = await _weatherApiClient.GetWeatherData(country, apiKey);
         var weatherApiResponseDto = JsonSerializer.Deserialize<WeatherApiResponseDto>(stringJson);

@@ -6,7 +6,7 @@ public class WeatherData
     public double Temperature { get; init; }
     public double FeelsLikeTemperature { get; init; }
     public double Humidity { get; init; }
-    public double WindSpeed { get; init; }
+    public WindSpeed WindSpeed { get; init; }
     public double Pressure { get; init; }
 
     public override string ToString() => $"Weather: {WeatherDescription}, " +

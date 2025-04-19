@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using WeatherDataAggregator.DataAccess;
+using WeatherDataAggregator.DataAccess.DataProviders;
 using WeatherDataAggregator.Models;
 using WeatherDataAggregator.UserInteraction;
 

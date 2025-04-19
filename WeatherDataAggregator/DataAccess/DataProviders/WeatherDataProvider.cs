@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.Json;
 using WeatherDataAggregator.DataAccess.ApiClients;
+using WeatherDataAggregator.DataAccess.DataProviders;
 using WeatherDataAggregator.DTOs.OpenWeatherDTOs;
 using WeatherDataAggregator.Models;
 using WeatherDataAggregator.Utilities;

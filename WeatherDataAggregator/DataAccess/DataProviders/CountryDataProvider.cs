@@ -5,7 +5,7 @@ using WeatherDataAggregator.DataAccess.ApiClients;
 using WeatherDataAggregator.DTOs.RestCountiresDTOs;
 using WeatherDataAggregator.Models;
 
-namespace WeatherDataAggregator.DataAccess;
+namespace WeatherDataAggregator.DataAccess.DataProviders;
 
 public class CountryDataProvider : ICountryDataProvider
 {

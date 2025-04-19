@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using WeatherDataAggregator.Models;
 
-namespace WeatherDataAggregator.DataAccess;
+namespace WeatherDataAggregator.DataAccess.DataProviders;
 
 public interface IWeatherDataProvider
 {

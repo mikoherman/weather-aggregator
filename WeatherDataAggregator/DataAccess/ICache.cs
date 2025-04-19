@@ -1,4 +1,4 @@
-﻿namespace WeatherDataAggregator.DataAccess;
+﻿namespace WeatherDataAggregator.DataAccess.DataProviders;
 /// <summary>
 /// Represents a simple cache for storing and managing small data sets.
 /// </summary>

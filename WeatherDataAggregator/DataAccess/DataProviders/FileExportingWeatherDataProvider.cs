@@ -37,6 +37,34 @@ public class FileExportingWeatherDataProvider : IWeatherDataProvider
         _fileName = fileName;
     }
     /// <summary>
+    /// Initializes a new instance of the <see cref="FileExportingWeatherDataProvider"/> class with a default mapper.
+    /// </summary>
+    /// <param name="weatherDataProvider">The underlying <see cref="IWeatherDataProvider"/> to fetch weather data.</param>
+    /// <param name="fileHandler">The <see cref="IFileHandler{T}"/> used to write weather data to a file.</param>
+    /// <param name="fileName">The name of the file where the weather data will be saved.</param>
+    public FileExportingWeatherDataProvider(IWeatherDataProvider weatherDataProvider,
+        IFileHandler<IEnumerable<CountryWeatherDto>> fileHandler, string fileName) : 
+        this(weatherDataProvider, fileHandler, DefaultMapper, fileName) { }
+    /// <summary>
+    /// The default mapper function for converting weather data to <see cref="CountryWeatherDto"/>.
+    /// </summary>
+    /// <param name="kvp">
+    /// A <see cref="KeyValuePair{TKey, TValue}"/> where the key is a <see cref="Country"/> and the value is a <see cref="WeatherData"/>.
+    /// </param>
+    /// <returns>A <see cref="CountryWeatherDto"/> representing the mapped weather data.</returns>
+    private static CountryWeatherDto DefaultMapper(KeyValuePair<Country, WeatherData> kvp)
+    {
+        return new CountryWeatherDto(
+            kvp.Key.Name,
+            kvp.Value.WeatherDescription,
+            kvp.Value.Temperature,
+            kvp.Value.FeelsLikeTemperature,
+            kvp.Value.Humidity,
+            kvp.Value.WindSpeed,
+            kvp.Value.Pressure
+        );
+    }
+    /// <summary>
     /// Retrieves weather data for the specified countries and saves the result to a file.
     /// </summary>
     /// <param name="countries">The collection of <see cref="Country"/> objects for which weather data is requested.</param>

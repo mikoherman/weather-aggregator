@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Text.Json;
 using WeatherDataAggregator.DataAccess.ApiClients;
 using WeatherDataAggregator.DTOs.RestCountiresDTOs;
@@ -34,11 +35,3 @@ public class CountryDataProvider : ICountryDataProvider
             throw new JsonException("Failed to deserialize JSON into CountryDto. The result was null.");
     }
 }
-
-
-
-
-
-
-
-

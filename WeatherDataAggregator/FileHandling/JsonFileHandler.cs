@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Serilog;
 
 namespace WeatherDataAggregator.FileHandling;
 
@@ -25,33 +26,51 @@ public class JsonFileHandler<T> : IFileHandler<T>
     {
         if (!File.Exists(path))
             return default(T);
-
-        var json = File.ReadAllText(path);
-
-        if (string.IsNullOrWhiteSpace(json))
-            return default(T);
+        string? json = null;
         try
         {
+            json = File.ReadAllText(path);
+            if (string.IsNullOrWhiteSpace(json))
+                return default(T);
             return JsonSerializer.Deserialize<T>(json);
         }
-        catch (Exception ex) when (ex is JsonException || ex is NotSupportedException)
+        catch (ArgumentException ex)
         {
-            // TODO add Logging
+            Log.Error($"{path} is an invalid string for a path parameter. Exception: {ex}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            Log.Error($"An I/O error has occured while opening the file {path}. Exception: {ex}");
+            throw;
+        }
+        catch (JsonException ex)
+        {
+            Log.Error($"JSON string: {json ?? "-"} read from {path} was in an invalid format. Exception: {ex}");
             throw;
         }
     }
-
     public void WriteToAFile(string path, T data)
     {
-        var json = JsonSerializer.Serialize(data);
-        File.WriteAllText(path, json);
+        try
+        {
+            var json = JsonSerializer.Serialize(data);
+            File.WriteAllText(path, json);
+        }
+        catch (NotSupportedException ex)
+        {
+            Log.Error($"Failed to serialize type {typeof(T).Name} to JSON while writing to file '{path}'. Exception: {ex}.");
+            throw;
+        }
+        catch(PathTooLongException ex)
+        {
+            Log.Error($"The specified path, file name, or both exceed the system-defined maximum length. For path: {path}. Exception: {ex}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            Log.Error($"An I/O error has occured while opening the file {path}. Exception: {ex}");
+            throw;
+        }
     }
 }
-
-
-
-
-
-
-
-

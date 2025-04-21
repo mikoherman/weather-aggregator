@@ -1,4 +1,5 @@
-﻿using WeatherDataAggregator.DataAccess;
+﻿using Serilog;
+using WeatherDataAggregator.DataAccess;
 using WeatherDataAggregator.DataAccess.ApiClients;
 using WeatherDataAggregator.DataAccess.DataProviders;
 using WeatherDataAggregator.DTOs;
@@ -13,8 +14,12 @@ public class Program
 {
     static async Task Main(string[] args)
     {
-		try
+        string logFileName = "log.txt";
+        try
 		{
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File(logFileName)
+                .CreateLogger();
             string? apiKey = Environment.GetEnvironmentVariable("OPEN_WEATHER_API_KEY");
             using var weatherApiClient = new OpenWeatherApiClient(new HttpClient());
             using var restCountriesApiClient = new RestCountriesApiClient(new HttpClient());
@@ -33,12 +38,12 @@ public class Program
             var app = new WeatherDataAggregatorApp(weatherDataProvider, countryDataProvider, userIOProcessor);
             await app.Run(apiKey);
         }
-		catch (Exception)
+		catch (Exception ex)
 		{
-            // TODO add Logging
-			throw;
+            Log.Error($"An unexpected error occurred: {ex}");
+            Console.WriteLine("An unexpected error occurred. Please check the log file for details.");
+            throw;
 		}
-
         Console.WriteLine("Program is finished.");
         Console.ReadKey();
     }

@@ -31,8 +31,8 @@ The main goal of this project is to demonstrate my view, and understanding of:
 
 - [CsvHelper](https://joshclose.github.io/CsvHelper/) - For efficient and robust CSV file handling.
 - [Serilog](https://serilog.net/) - For structured logging, enabling easier debugging and improving maintainability.
-- [RestCountriesAPI](https://restcountries.com/) - For a complete list of countries from provided continent and their location
-- [OpenWeatherAPI](https://openweathermap.org/api) - Supplies current weather data based on geographic location, enhancing the project’s ability to fetch real-time data.
+- [RestCountriesAPI](https://restcountries.com/) - For a complete list of countries from provided continent and their location.
+- [OpenWeatherAPI](https://openweathermap.org/api) - For real-time weather data based on geographic location.
 
 ## Features
 
@@ -48,7 +48,7 @@ The main goal of this project is to demonstrate my view, and understanding of:
 ![countrieslist](https://github.com/user-attachments/assets/e73803b9-b479-488a-9f77-0f79772051d3)
 2. Keeps prompting user until a valid input is received (number 1 - 6):<br><br>
 ![PromptMessage](https://github.com/user-attachments/assets/884aa59d-09fd-4928-b685-43683f528f77)
-3. Fetches countries list of a continent from RestCountries API or from cache if it's available.
+3. Fetches countries list of a continent from RestCountries API and caches it, or retrieves it from cache if it's available.
 4. For each country in the list makes a call to OpenWeather API for the weather data.
 5. Displays weather data to the console in a tabular format<br><br>
 ![ConsoleDisplay](https://github.com/user-attachments/assets/220a833c-ac37-4e58-a6bf-7c3ba8c1fc45)

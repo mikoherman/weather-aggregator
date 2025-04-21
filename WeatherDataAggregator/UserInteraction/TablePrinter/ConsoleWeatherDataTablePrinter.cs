@@ -4,6 +4,9 @@ using WeatherDataAggregator.Models;
 
 namespace WeatherDataAggregator.UserInteraction.TablePrinter;
 
+/// <summary>
+/// Provides functionality to print weather data in a tabular format to the console.
+/// </summary>
 public class ConsoleWeatherDataTablePrinter : IConsoleWeatherDataTablePrinter
 {
     private const int _charactersInCountryNameCell = 30;

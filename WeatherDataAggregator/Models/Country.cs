@@ -2,7 +2,7 @@
 
 public class Country
 {
-    public string Name { get; init; }
+    public string Name { get; init; } = "";
     public double Latitude { get; init; }
     public double Longitude { get; init; }
 

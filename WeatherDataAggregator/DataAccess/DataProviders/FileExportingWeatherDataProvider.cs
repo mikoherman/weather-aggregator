@@ -44,8 +44,9 @@ public class FileExportingWeatherDataProvider : IWeatherDataProvider
     /// <param name="fileHandler">The <see cref="IFileHandler{T}"/> used to write weather data to a file.</param>
     /// <param name="fileName">The name of the file where the weather data will be saved.</param>
     public FileExportingWeatherDataProvider(IWeatherDataProvider weatherDataProvider,
-        IFileHandler<IEnumerable<CountryWeatherDto>> fileHandler, string fileName) : 
-        this(weatherDataProvider, fileHandler, DefaultMapper, fileName) { }
+        IFileHandler<IEnumerable<CountryWeatherDto>> fileHandler, string fileName) :
+        this(weatherDataProvider, fileHandler, DefaultMapper, fileName)
+    { }
     /// <summary>
     /// The default mapper function for converting weather data to <see cref="CountryWeatherDto"/>.
     /// </summary>

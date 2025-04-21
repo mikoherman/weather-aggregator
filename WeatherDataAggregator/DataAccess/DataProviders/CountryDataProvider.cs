@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Text.Json;
 using WeatherDataAggregator.DataAccess.ApiClients;
 using WeatherDataAggregator.DTOs.RestCountiresDTOs;

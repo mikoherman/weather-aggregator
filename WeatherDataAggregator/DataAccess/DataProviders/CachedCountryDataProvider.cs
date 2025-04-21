@@ -21,7 +21,7 @@ public class CachedCountryDataProvider :
     private readonly Dictionary<Continent, IEnumerable<Country>> _cachedCountries = new();
     private readonly string _cacheFileName;
 
-    public CachedCountryDataProvider(ICountryDataProvider countryDataProvider, 
+    public CachedCountryDataProvider(ICountryDataProvider countryDataProvider,
         IFileHandler<Dictionary<Continent, IEnumerable<Country>>> fileHandler, string cacheFileName)
     {
         _countryDataProvider = countryDataProvider;
@@ -56,7 +56,7 @@ public class CachedCountryDataProvider :
     /// If the file does not exist or contains invalid data, the cache remains empty, and a warning is logged.
     /// </remarks>
     private void Initialize() =>
-        (_fileHandler.ReadFromAFile(_cacheFileName)?? new())
+        (_fileHandler.ReadFromAFile(_cacheFileName) ?? new())
         .ToList()
         .ForEach(kvp => _cachedCountries[kvp.Key] = kvp.Value);
     /// <summary>
@@ -68,7 +68,7 @@ public class CachedCountryDataProvider :
     /// </remarks>
     public void AddToCache(params KeyValuePair<Continent, IEnumerable<Country>>[] elements)
     {
-        _fileHandler.WriteToAFile(_cacheFileName, 
+        _fileHandler.WriteToAFile(_cacheFileName,
             _cachedCountries.Union(elements).ToDictionary());
     }
 }

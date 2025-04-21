@@ -25,7 +25,7 @@ public class WeatherDataAggregatorApp
             await _countryDataProvider.GetCountriesByContinentAsync(continent);
         ReadOnlyDictionary<Country, WeatherData> countriesWithWeathers =
             await _weatherDataProvider
-            .GetWeatherDataForCountriesAsync(countryCollection.Take(2), apiKey);
+            .GetWeatherDataForCountriesAsync(countryCollection, apiKey);
         _userIOProcessor.DisplayWeatherDataForCountries(countriesWithWeathers);
     }
 }

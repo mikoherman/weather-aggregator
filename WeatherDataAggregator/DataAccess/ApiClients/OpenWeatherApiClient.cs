@@ -1,4 +1,5 @@
-﻿using WeatherDataAggregator.DataAccess.ApiClients;
+﻿using Serilog;
+using WeatherDataAggregator.DataAccess.ApiClients;
 using WeatherDataAggregator.Models;
 
 namespace WeatherDataAggregator;
@@ -17,9 +18,31 @@ public class OpenWeatherApiClient : IDisposable, IWeatherApiClient
     {
         string urlParameters = $"?lat={country.Latitude}&lon={country.Longitude}&appid={apiKey}&units=metric";
         string fullUrl = $"{_urlBase}{urlParameters}";
-        var response = await _httpClient.GetAsync(fullUrl);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadAsStringAsync();
+        try
+        {
+            var response = await _httpClient.GetAsync(fullUrl);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
+        }
+        catch (HttpRequestException ex)
+        {
+            if (ex.StatusCode is not null)
+            {
+                int requestStatusCode = (int)ex.StatusCode;
+                string errorType = requestStatusCode switch
+                {
+                    >= 500 => "Server-side error",
+                    >= 400 => "Client-side error",
+                    _ => "Unknown error"
+                };
+                Log.Error($"{errorType} while fetching data from OpenWeather API service for country '{country}' from URL '{_urlBase}'. Status Code: {requestStatusCode}. Exception: {ex}");
+            }
+            else
+            {
+                Log.Error($"Unknown error while fetching data from OpenWeather API service for country '{country}' from URL '{_urlBase}'. Exception: {ex}");
+            }
+            throw;
+        }
     }
 
     public void Dispose()

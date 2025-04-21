@@ -3,6 +3,16 @@ using Serilog;
 
 namespace WeatherDataAggregator.FileHandling;
 
+/// <summary>
+/// Provides functionality for reading and writing JSON files.
+/// </summary>
+/// <typeparam name="T">
+/// The type of the object to be serialized to or deserialized from JSON.
+/// </typeparam>
+/// <remarks>
+/// This class implements the <see cref="IFileHandler{T}"/> interface and uses the System.Text.Json library
+/// for JSON serialization and deserialization. It also logs errors using Serilog.
+/// </remarks>
 public class JsonFileHandler<T> : IFileHandler<T>
 {
     /// <summary>
@@ -50,6 +60,20 @@ public class JsonFileHandler<T> : IFileHandler<T>
             throw;
         }
     }
+    /// <summary>
+    /// Serializes an object of type <typeparamref name="T"/> to JSON and writes it to a file.
+    /// </summary>
+    /// <param name="path">The path to the file where the JSON data will be written.</param>
+    /// <param name="data">The object to be serialized to JSON.</param>
+    /// <exception cref="NotSupportedException">
+    /// Thrown if the type <typeparamref name="T"/> is not supported for serialization.
+    /// </exception>
+    /// <exception cref="PathTooLongException">
+    /// Thrown if the specified path, file name, or both exceed the system-defined maximum length.
+    /// </exception>
+    /// <exception cref="IOException">
+    /// Thrown if an I/O error occurs while writing to the file.
+    /// </exception>
     public void WriteToAFile(string path, T data)
     {
         try
@@ -62,7 +86,7 @@ public class JsonFileHandler<T> : IFileHandler<T>
             Log.Error($"Failed to serialize type {typeof(T).Name} to JSON while writing to file '{path}'. Exception: {ex}.");
             throw;
         }
-        catch(PathTooLongException ex)
+        catch (PathTooLongException ex)
         {
             Log.Error($"The specified path, file name, or both exceed the system-defined maximum length. For path: {path}. Exception: {ex}");
             throw;
